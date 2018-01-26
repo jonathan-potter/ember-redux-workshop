@@ -1,51 +1,44 @@
 # redux-workshop
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+* `npm install -g ember-cli`
+* `ember new ember-redux-workshop`
+* `npm remove -g ember-cli`
+* `yarn start`
+* open [http://localhost:4200/](http://localhost:4200/) to verify things are working
+* remove `welcome-page` component from `application.hbs`
 
-## Prerequisites
+# Make a super simple counter with component state
 
-You will need the following things properly installed on your computer.
+* `yarn ember g component counter-thing`
+* `application.hbs`
+```hbs
+{{counter-thing}}
+```
+* `counter-thing.js`
+```js
+import Component from '@ember/component';
 
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/) (with npm)
-* [Ember CLI](https://ember-cli.com/)
-* [Google Chrome](https://google.com/chrome/)
+export default Component.extend({
+  value: 0,
+  actions: {
+    countUp() {
+      this.set('value', this.get('value') + 1)
+    },
+    countDown() {
+      this.set('value', this.get('value') - 1)
+    }
+  }
+});
+```
+* `counter-thing.hbs`
+```hbs
+<div>{{value}}</div>
+<button type="button" name="button" {{action "countUp"}}>+</button>
+<button type="button" name="button" {{action "countDown"}}>-</button>
+```
 
-## Installation
+# Move the state to the application controller
 
-* `git clone <repository-url>` this repository
-* `cd redux-workshop`
-* `npm install`
+# Reduxify
 
-## Running / Development
-
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
-
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](https://emberjs.com/)
-* [ember-cli](https://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+* `yarn ember install ember-redux`

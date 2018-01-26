@@ -9,6 +9,8 @@
 
 # Make a super simple counter with component state
 
+The first thing we're going to do is make a super simple component with state and actions
+
 * `yarn ember g component counter-thing`
 * `application.hbs`
 ```hbs
@@ -37,8 +39,49 @@ export default Component.extend({
 <button type="button" name="button" {{action "countDown"}}>-</button>
 ```
 
-# Move the state to the application controller
+# Move the state to the application controller and use fancy closure actions
+
+now we're going to move the state from the component up to the application controller so we can have more sharable state! Of course we know that this way of doing things still has the problem that sometimes state must be passed through multiple component layers. This is everyones favorite activity... wiring!
+
+* `yarn ember g controller application`
+* `controllers/application.js`
+```js
+import Controller from '@ember/controller';
+
+export default Controller.extend({
+    value: 0,
+    actions: {
+      countUp() {
+        this.set('value', this.get('value') + 1)
+      },
+      countDown() {
+        this.set('value', this.get('value') - 1)
+      }
+    }
+});
+```
+* `application.hbs`
+```hbs
+{{counter-thing value=value countUp=(action "countUp") countDown=(action "countDown")}}
+```
+* `counter-thing.js`
+```js
+import Component from '@ember/component';
+
+export default Component.extend({
+});
+```
+* `counter-thing.hbs`
+```hbs
+<div>{{value}}</div>
+<button type="button" name="button" {{action (action countUp)}}>+</button>
+<button type="button" name="button" {{action (action countDown)}}>-</button>
+```
 
 # Reduxify
 
+Finally, we're going to pull the state and actions out of the components and controllers entirely and place them into redux store and redux actions. This means that the state and actions will be accessible in any component where they might be necessary without ANY wiring :)
+
 * `yarn ember install ember-redux`
+* `mkdir app/actions`
+* `mkdir app/reducers`

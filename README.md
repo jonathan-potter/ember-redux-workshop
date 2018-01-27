@@ -84,4 +84,80 @@ Finally, we're going to pull the state and actions out of the components and con
 
 * `yarn ember install ember-redux`
 * `mkdir app/actions`
+* `touch app/actions/index.js`
 * `mkdir app/reducers`
+* `touch app/reducers/index.js`
+* `touch app/reducers/counter-value.js`
+* `counter-value.js`
+```js
+export default function counterValue(state = 0, action) {
+    switch (action.type) {
+        case 'COUNT_UP': {
+            return state + 1;
+        }
+        case 'COUNT_DOWN': {
+            return state - 1;
+        }
+        default: {
+            return state;
+        }
+    }
+}
+```
+* `reducers/index.js`
+```js
+import { combineReducers } from 'redux';
+import counterValue from './counter-value';
+
+export default combineReducers({
+    counterValue
+});
+```
+* `actions/index.js`
+```js
+export const countUp = () => (dispatch, getState) => {
+    dispatch({
+        type: 'COUNT_UP'
+    });
+};
+
+export const countDown = () => (dispatch, getState) => {
+    dispatch({
+        type: 'COUNT_DOWN'
+    });
+};
+```
+* `controllers/application.js`
+```js
+import Controller from '@ember/controller';
+
+export default Controller.extend({
+});
+```
+* `application.hbs`
+```hbs
+{{counter-thing}}
+```
+* `counter-thing.js`
+```js
+import Component from '@ember/component';
+import { connect } from 'ember-redux';
+import { countUp, countDown } from '../actions';
+
+const stateToComputed = (state) => ({
+    counterValue: state.counterValue
+});
+
+const dispatchToActions = {
+    countUp,
+    countDown
+};
+
+export default connect(stateToComputed, dispatchToActions)(Component.extend({}));
+```
+* `counter-thing.hbs`
+```hbs
+<div>{{counterValue}}</div>
+<button type="button" name="button" {{action "countUp"}}>+</button>
+<button type="button" name="button" {{action "countDown"}}>-</button>
+```

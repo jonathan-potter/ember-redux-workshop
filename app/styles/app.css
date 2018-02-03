@@ -1,0 +1,7 @@
+.floater-thing {
+  position: fixed;
+  height: 100px;
+  width: 100px;
+  background: #f88;
+  transform: translate(-50%, -50%);
+}

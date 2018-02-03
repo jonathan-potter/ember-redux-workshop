@@ -161,3 +161,11 @@ export default connect(stateToComputed, dispatchToActions)(Component.extend({}))
 <button type="button" name="button" {{action "countUp"}}>+</button>
 <button type="button" name="button" {{action "countDown"}}>-</button>
 ```
+# Exercise
+
+Add a new component called `floater-thing`. `floater-thing` should be a 100px by 100px div in the middle of the page which uses `counterValue` from the `redux` `state` as an added pixel offset from center in the `y` direction. Additionally, clicking on the `floater-thing` div should reset the counter.
+
+* make a new component called `floater-thing`
+* use `counterValue` state
+* create a new action that will reset your `counterValue`
+* modify your reducers as necessary

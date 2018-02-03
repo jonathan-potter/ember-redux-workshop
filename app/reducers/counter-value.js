@@ -6,6 +6,9 @@ export default function counterValue(state = 0, action) {
         case 'COUNT_DOWN': {
             return state - 1;
         }
+        case 'RESET_COUNTER': {
+            return 0;
+        }
         default: {
             return state;
         }

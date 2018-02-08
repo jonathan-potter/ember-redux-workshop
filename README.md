@@ -1,5 +1,7 @@
 # redux-workshop
 
+There is no need to clone the repo. The code in the repo is a reference solution.
+
 * `npm install -g ember-cli`
 * `ember new ember-redux-workshop`
 * `npm remove -g ember-cli`
@@ -169,3 +171,10 @@ Add a new component called `floater-thing`. `floater-thing` should be a 100px by
 * use `counterValue` state
 * create a new action that will reset your `counterValue`
 * modify your reducers as necessary
+
+# Homework
+
+run through this free course on Redux given by the author Dan Abramov
+https://egghead.io/courses/getting-started-with-redux
+follow up course if you're interested:
+https://egghead.io/courses/building-react-applications-with-idiomatic-redux
